@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Perfect Jolly Learning Resources</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap');
+
+  :root {
+    --jolly-red: #E8342A;
+    --jolly-yellow: #F9C22E;
+    --jolly-green: #3BAE6B;
+    --jolly-blue: #2D7DD2;
+    --jolly-purple: #7C4DFF;
+    --jolly-orange: #FF7043;
+    --bg: #FFF9F0;
+    --text: #1A1A2E;
+    --card-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    --radius: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .bg-blobs {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .blob {
+    position: absolute; border-radius: 50%; opacity: 0.08;
+    animation: float 8s ease-in-out infinite;
+  }
+  .blob-1 { width: 400px; height: 400px; background: var(--jolly-yellow); top: -100px; right: -100px; animation-delay: 0s; }
+  .blob-2 { width: 300px; height: 300px; background: var(--jolly-blue); bottom: 100px; left: -80px; animation-delay: 2s; }
+  .blob-3 { width: 200px; height: 200px; background: var(--jolly-green); top: 40%; right: 5%; animation-delay: 4s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+  }
+
+  .wrapper {
+    position: relative; z-index: 1;
+    max-width: 760px; margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  /* HEADER */
+  .header { text-align: center; margin-bottom: 40px; }
+  .header-badge {
+    display: inline-block;
+    background: var(--jolly-yellow);
+    color: var(--text);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: clamp(28px, 6vw, 48px);
+    color: var(--jolly-red);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .header p {
+    font-size: 16px; color: #555; max-width: 480px; margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 32px;
+  }
+  .progress-bar {
+    flex: 1; height: 8px;
+    background: #E8E0D8; border-radius: 100px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--jolly-red), var(--jolly-orange));
+    border-radius: 100px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+  .progress-label {
+    font-size: 13px; font-weight: 700; color: #888; white-space: nowrap;
+  }
+
+  /* QUESTION CARD */
+  .question-card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    padding: 36px;
+    margin-bottom: 24px;
+    animation: slideIn 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-meta {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .q-number {
+    width: 32px; height: 32px;
+    background: var(--jolly-red); color: white;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px; flex-shrink: 0;
+  }
+  .q-label {
+    font-size: 12px; font-weight: 700; color: #AAA;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .question-text {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: clamp(18px, 4vw, 26px);
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 24px;
+  }
+
+  /* OPTIONS */
+  .options-grid {
+    display: grid; gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .option-btn {
+    background: #FAFAFA;
+    border: 2.5px solid #EEE;
+    border-radius: 14px;
+    padding: 16px 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--text);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .option-btn:hover {
+    border-color: var(--jolly-blue);
+    background: #F0F6FF;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(45,125,210,0.15);
+  }
+  .option-btn.selected {
+    border-color: var(--jolly-red);
+    background: #FFF5F4;
+    box-shadow: 0 0 0 4px rgba(232,52,42,0.12);
+  }
+  .option-emoji {
+    font-size: 22px; flex-shrink: 0; width: 32px; text-align: center;
+  }
+  .option-text { flex: 1; line-height: 1.4; }
+  .option-sub { font-weight: 600; color: #888; font-size: 13px; display: block; margin-top: 2px; }
+
+  /* NEXT BTN */
+  .next-wrap { text-align: right; }
+  .next-btn {
+    background: var(--jolly-red);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 32px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px; font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .next-btn:hover { background: #c72a22; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(232,52,42,0.3); }
+  .next-btn:disabled { background: #CCC; cursor: not-allowed; transform: none; box-shadow: none; }
+  .next-btn .arrow { font-size: 18px; }
+
+  /* RESULTS */
+  .results-header { text-align: center; margin-bottom: 36px; }
+  .results-header .trophy { font-size: 56px; margin-bottom: 12px; }
+  .results-header h2 {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: clamp(24px, 5vw, 36px);
+    color: var(--jolly-red); margin-bottom: 8px;
+  }
+  .results-header p { font-size: 15px; color: #666; max-width: 480px; margin: 0 auto; }
+
+  .results-summary {
+    background: white; border-radius: var(--radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    margin-bottom: 32px;
+    display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .summary-chip {
+    background: #F5F5F5; border-radius: 100px;
+    padding: 8px 16px; font-size: 13px; font-weight: 700; color: #444;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .products-section h3 {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 22px; color: var(--text);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .products-section h3 .section-icon { font-size: 24px; }
+
+  .product-card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    border-left: 5px solid var(--jolly-red);
+    animation: slideIn 0.4s cubic-bezier(.4,0,.2,1) both;
+  }
+  .product-card.priority-2 { border-left-color: var(--jolly-orange); }
+  .product-card.priority-3 { border-left-color: var(--jolly-blue); }
+  .product-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+  .product-icon { font-size: 28px; flex-shrink: 0; }
+  .product-name {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 19px; color: var(--text);
+    margin-bottom: 2px;
+  }
+  .product-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 3px 10px; border-radius: 100px;
+  }
+  .tag-school { background: #E3F4EC; color: #2D7A52; }
+  .tag-home { background: #FFF3E0; color: #B05A00; }
+  .tag-new { background: #FFE4E3; color: #C0392B; }
+  .tag-price { background: #F0FFF4; color: #276749; }
+  .tag-eal { background: #F3E8FF; color: #6B21A8; }
+
+  .product-desc {
+    font-size: 14px; color: #555; line-height: 1.6; margin-top: 10px;
+  }
+  .product-isbn {
+    font-size: 12px; color: #AAA; font-weight: 700;
+    margin-top: 10px; font-family: monospace;
+  }
+  .product-why {
+    margin-top: 12px; padding: 10px 14px;
+    background: #FFFBF0; border-radius: 10px;
+    border: 1px solid #F9C22E;
+    font-size: 13px; font-weight: 700; color: #7A5800;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .product-why::before { content: '⭐'; flex-shrink: 0; }
+
+  .restart-btn {
+    display: block; width: 100%; max-width: 300px; margin: 32px auto 0;
+    background: white; border: 2.5px solid var(--jolly-red);
+    color: var(--jolly-red);
+    border-radius: 14px; padding: 14px 32px;
+    font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800;
+    cursor: pointer; transition: all 0.2s; text-align: center;
+  }
+  .restart-btn:hover { background: var(--jolly-red); color: white; }
+
+  .section-divider {
+    height: 2px; background: linear-gradient(90deg, var(--jolly-red), transparent);
+    border-radius: 2px; margin: 28px 0;
+    opacity: 0.2;
+  }
+
+  @media (max-width: 520px) {
+    .question-card { padding: 24px 20px; }
+    .options-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<div class="wrapper">
+  <div class="header">
+    <div class="header-badge">🎉 Jolly Learning 2026 Catalogue</div>
+    <h1>Find Your Perfect<br>Learning Resources</h1>
+    <p>Answer 4 quick questions and we'll match you with the right Jolly Learning products for your child or class.</p>
+  </div>
+
+  <div id="quiz-section">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 0%"></div></div>
+      <div class="progress-label" id="progress-label">Question 1 of 5</div>
+    </div>
+    <div id="question-area"></div>
+    <div class="next-wrap" style="margin-top: 20px;">
+      <button class="next-btn" id="next-btn" disabled onclick="nextQuestion()">
+        Continue <span class="arrow">→</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="results-section" style="display:none;"></div>
+</div>
+
+<script>
+const questions = [
+  {
+    id: "who",
+    text: "Who are you shopping for?",
+    label: "Your role",
+    options: [
+      { emoji: "👩‍👧", label: "A parent", sub: "Supporting learning at home", value: "parent" },
+      { emoji: "👩‍🏫", label: "A classroom teacher", sub: "School or nursery setting", value: "teacher" },
+      { emoji: "🧑‍🏫", label: "A SENCO / support teacher", sub: "Targeted intervention or extra support", value: "senco" },
+      { emoji: "🏫", label: "A school / department lead", sub: "Whole-school programme purchase", value: "school" }
+    ]
+  },
+  {
+    id: "age",
+    text: "What age or year group is the child/class?",
+    label: "Age group",
+    options: [
+      { emoji: "🐣", label: "Pre-school / Nursery", sub: "Ages 3–4, not yet in Reception", value: "nursery" },
+      { emoji: "🌱", label: "Reception (Year 0)", sub: "Ages 4–5, first year of school", value: "reception" },
+      { emoji: "📚", label: "Year 1", sub: "Ages 5–6", value: "year1" },
+      { emoji: "✏️", label: "Year 2–6", sub: "Ages 6–11, building on phonics", value: "year2plus" }
+    ]
+  },
+  {
+    id: "focus",
+    text: "What's the main learning focus right now?",
+    label: "Learning focus",
+    options: [
+      { emoji: "🔤", label: "Learning letter sounds", sub: "Just getting started with phonics", value: "sounds" },
+      { emoji: "📖", label: "Reading practice", sub: "Decoding words, building fluency", value: "reading" },
+      { emoji: "✍️", label: "Handwriting & writing", sub: "Letter formation and spelling", value: "writing" },
+      { emoji: "🧠", label: "Spelling, grammar & punctuation", sub: "Year 1 and above", value: "literacy" }
+    ]
+  },
+  {
+    id: "setting",
+    text: "How will you mainly use these resources?",
+    label: "Usage setting",
+    options: [
+      { emoji: "📱", label: "Digital / screen-based", sub: "Apps, online platform, interactive lessons", value: "digital" },
+      { emoji: "📕", label: "Printed books & workbooks", sub: "Physical, write-in resources", value: "print" },
+      { emoji: "🧸", label: "Hands-on / physical tools", sub: "Flashcards, posters, puppets, props", value: "hands_on" },
+      { emoji: "🏠", label: "Mix of home & school", sub: "Resources that work in both settings", value: "both" }
+    ]
+  },
+];
+
+let answers = {};
+let currentQ = 0;
+let selectedOption = null;
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  const pct = (currentQ / questions.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `Question ${currentQ + 1} of 4`;
+
+  const area = document.getElementById('question-area');
+  area.innerHTML = `
+    <div class="question-card">
+      <div class="question-meta">
+        <div class="q-number">${currentQ + 1}</div>
+        <div class="q-label">${q.label}</div>
+      </div>
+      <div class="question-text">${q.text}</div>
+      <div class="options-grid">
+        ${q.options.map((opt, i) => `
+          <button class="option-btn" onclick="selectOption('${opt.value}', this)">
+            <span class="option-emoji">${opt.emoji}</span>
+            <span class="option-text">
+              ${opt.label}
+              <span class="option-sub">${opt.sub}</span>
+            </span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  selectedOption = null;
+  document.getElementById('next-btn').disabled = true;
+  document.getElementById('next-btn').textContent = currentQ === questions.length - 1 ? 'See My Recommendations →' : 'Continue →';
+}
+
+function selectOption(value, btn) {
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedOption = value;
+  document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+  if (!selectedOption) return;
+  answers[questions[currentQ].id] = selectedOption;
+  currentQ++;
+  if (currentQ < questions.length) {
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function getRecommendations() {
+  const { who, age, focus, setting, budget } = answers;
+
+  const allProducts = [
+    // Core Phonics Books
+    {
+      id: 'pupil_books',
+      name: 'Jolly Phonics Pupil Books 1, 2 & 3',
+      icon: '📗',
+      tags: ['school', 'home'],
+      price: '£5 each',
+      desc: 'The core write-in pupil books — a full year\'s worth of structured phonics lessons. Covers letter sounds, blending, segmenting, tricky words, and handwriting. Available in print or precursive letters.',
+      isbn: 'JL7168 / JL7199 (Book 1) · JL7175 / JL7205 (Book 2) · JL7182 / JL7212 (Book 3)',
+      match: ({who, age, focus, setting}) =>
+        ['reception','year1'].includes(age) && ['sounds','reading','writing'].includes(focus) && ['print','both'].includes(setting),
+      why: 'Perfect for Reception/Year 1. Structured daily lessons that parents can follow at home too.',
+      priority: 1
+    },
+    {
+      id: 'teacher_book',
+      name: 'Jolly Phonics Teacher\'s Book',
+      icon: '📘',
+      tags: ['school'],
+      price: 'Single purchase',
+      desc: 'Step-by-step lesson guidance for every session in the Pupil Books, including pictorial answer keys and teaching tips. Available in print or precursive letters.',
+      isbn: 'JL4009 (Precursive) · JL4016 (Print)',
+      match: ({who, age, focus}) =>
+        ['teacher','school','senco'].includes(who) && ['reception','year1'].includes(age),
+      why: 'Gives teachers everything they need — lesson plans, tips, and answer keys included.',
+      priority: 1
+    },
+    {
+      id: 'activity_books',
+      name: 'Jolly Phonics Activity Books 1–7 (NEW 2026)',
+      icon: '✏️',
+      tags: ['home', 'new'],
+      price: 'Individual or set of 7',
+      desc: 'Brand new for 2026! Seven fun sticker activity books (36 pages each, A4 colour) that introduce the 42 letter sounds through play. Each includes 2 sticker pages. Ideal for ages 3 and up.',
+      isbn: 'JL3651–JL3712 (individual) · JL3729 (full set of 7)',
+      match: ({age, setting, budget}) =>
+        ['nursery','reception'].includes(age) && ['print','both'].includes(setting),
+      why: 'Sticker books = huge motivation boost for young learners. Great for home reinforcement.',
+      priority: 1
+    },
+    {
+      id: 'starter_kit',
+      name: 'Jolly Phonics Starter Kit',
+      icon: '🧳',
+      tags: ['school'],
+      price: 'Bundle — best starter value',
+      desc: 'A complete classroom starter pack in a carrying case. Includes Teacher\'s Book, Word Book, Finger Phonics Big Books 1–7, Letter Sound Strips, Cards, Posters, Tricky Word Wall Flowers, Wall Frieze, Jolly Songs, Orange & Pink Reader Sets, and a 6-month Jolly Classroom subscription.',
+      isbn: 'JL4818',
+      match: ({who}) =>
+        ['teacher','school'].includes(who),
+      why: 'Best value entry point for a new classroom — everything in one case, ready to go.',
+      priority: 1
+    },
+    {
+      id: 'classroom_kit',
+      name: 'Jolly Phonics Classroom Kit',
+      icon: '🏫',
+      tags: ['school'],
+      price: 'Comprehensive school bundle',
+      desc: 'The comprehensive classroom kit with a 12-month Jolly Classroom subscription, the full reader sets (Orange through Blue), puppets, magnetic letters, and all essential classroom display materials.',
+      isbn: 'JL4849 (Precursive) · JL4856 (with Puppets)',
+      match: ({who}) =>
+        ['school'].includes(who),
+      why: 'The complete solution for a school committing to Jolly Phonics — covers an entire academic year.',
+      priority: 1
+    },
+    {
+      id: 'jolly_classroom',
+      name: 'Jolly Classroom (Digital Platform)',
+      icon: '💻',
+      tags: ['school', 'digital'],
+      desc: 'Online platform with 150+ interactive lessons, songs, stories, activities and worksheets. Covers Jolly Phonics (Steps 1–3) and Spelling, Grammar & Punctuation (Years 1–2). Years 3–6 coming soon.',
+      isbn: 'Subscription included in kits, or standalone — see jollylearning.com',
+      match: ({setting, who}) =>
+        ['digital','both'].includes(setting) && ['teacher','school'].includes(who),
+      why: 'Saves massive planning time — lessons are ready-made and aligned to the pupil books.',
+      priority: 1
+    },
+    {
+      id: 'jolly_app',
+      name: 'Jolly Phonics App',
+      icon: '📱',
+      tags: ['home', 'school', 'digital'],
+      desc: 'Installed on nearly 10 million devices! Features all 42 letter sounds with audio, animations, songs, games, flashcards and assessments. Toggle between print/precursive and British/American English. Available on Apple Books and Google Play.',
+      isbn: 'Search "Jolly Phonics" on Apple Books or Google Play',
+      match: ({setting, age}) =>
+        ['digital','both'].includes(setting) && ['nursery','reception','year1'].includes(age),
+      why: 'Brilliant for home use — children love the interactive games, and parents find it easy to use alongside school.',
+      priority: 2
+    },
+    {
+      id: 'decodable_readers',
+      name: 'Decodable Readers (Orange → Blue levels)',
+      icon: '📚',
+      tags: ['school', 'home'],
+      desc: '230 books across 6 levels (Orange, Pink, Red, Yellow, Green, Blue). Carefully controlled vocabulary using the 42 letter sounds and tricky words from Steps 1–3. Each includes reading comprehension questions. New Pink level readers added for 2026.',
+      isbn: 'Various ISBNs — see jollylearning.com for full sets by level',
+      match: ({focus, age}) =>
+        focus === 'reading' || ['year1','year2plus'].includes(age),
+      why: 'Builds reading fluency step by step — children only encounter sounds they already know.',
+      priority: 1
+    },
+    {
+      id: 'finger_phonics',
+      name: 'Finger Phonics Big Books 1–7',
+      icon: '✋',
+      tags: ['school'],
+      desc: 'Large-format (classroom-size) books for whole-class teaching. Embossed letters children can trace with their finger. Each book covers one letter-sound group with activities and a wipe-clean sheet.',
+      isbn: 'JL6741',
+      match: ({who, setting, age}) =>
+        ['teacher','school'].includes(who) && ['hands_on','print'].includes(setting) && ['reception','year1'].includes(age),
+      why: 'A classic tool for multi-sensory whole-class phonics — the wipe-clean sheet is endlessly reusable.',
+      priority: 2
+    },
+    {
+      id: 'flashcards',
+      name: 'Jolly Phonics Picture Flashcards',
+      icon: '🃏',
+      tags: ['school', 'home'],
+      desc: 'Box of 60 colourful flashcards covering all 42 letter sounds, including 17 alternative spellings. Includes an instruction leaflet with guidance and tips.',
+      isbn: 'JL33X',
+      match: ({setting}) =>
+        ['hands_on','both'].includes(setting),
+      why: 'Quick, flexible, and great for fast-paced games and drills. Kids love the bright illustrations.',
+      priority: 2
+    },
+    {
+      id: 'puppets',
+      name: 'Jolly Phonics Puppets',
+      icon: '🧸',
+      tags: ['school', 'home'],
+      desc: 'Three full-size hand puppets of the main Jolly Phonics characters (Inky, Snake and Bee). Made of soft, plush material — great for storytelling and bringing phonics to life.',
+      isbn: 'JL200',
+      match: ({setting, age, who}) =>
+        ['hands_on','both'].includes(setting) && ['nursery','reception'].includes(age),
+      why: 'Children connect emotionally with the characters — a powerful engagement tool for reluctant learners.',
+      priority: 2
+    },
+    {
+      id: 'handwriting_books',
+      name: 'Jolly Phonics Handwriting Books 1–7',
+      icon: '🖊️',
+      tags: ['school', 'home'],
+      desc: 'Seven small books covering lower-case letters and digraphs from Step 1, plus a larger A4 Capital Letters book. Dotted letters, starting dots, and motor skill activities. Tips included for teachers and parents.',
+      isbn: 'JL0381 (set of 7, precursive) · JL2753 (Capital Letters)',
+      match: ({focus}) => focus === 'writing',
+      why: 'Targeted handwriting practice that reinforces letter formation alongside sound knowledge.',
+      priority: 1
+    },
+    {
+      id: 'jolly_literacy',
+      name: 'Jolly Literacy: Spelling, Grammar & Punctuation',
+      icon: '🧩',
+      tags: ['school'],
+      desc: 'Two programmes for Years 1–6: Spelling, Grammar & Punctuation (2 lessons/week on spelling patterns, grammar, dictionary skills), and Reading Comprehension & Writing Skills (2 lessons/week with rich texts and creative writing). Years 3–6 coming soon on Jolly Classroom.',
+      isbn: 'Various — see jollylearning.com',
+      match: ({age, focus}) =>
+        (age === 'year2plus' || focus === 'literacy'),
+      why: 'Seamlessly continues the Jolly journey from phonics into full literacy for Year 1 and beyond.',
+      priority: 1
+    },
+    {
+      id: 'bumper_book',
+      name: 'Bumper Book of Phonics Fun',
+      icon: '🎨',
+      tags: ['school', 'home'],
+      desc: 'Creative activities and ideas for teaching letter sounds: art & craft, role play, recipes, listening skills, investigations. Packed with inspiration for early years educators and parents.',
+      isbn: 'JL8417',
+      match: ({who, age}) =>
+        ['parent','teacher'].includes(who) && ['nursery','reception'].includes(age),
+      why: 'Brilliant for parents who want ideas beyond worksheets — brings phonics into everyday play.',
+      priority: 2
+    },
+    {
+      id: 'jolly_songs',
+      name: 'Jolly Songs',
+      icon: '🎵',
+      tags: ['school', 'home'],
+      desc: 'Sing-along book with catchy lyrics, actions and well-known tunes for all 42 letter sounds. Now includes downloadable audio.',
+      isbn: 'JL4832 (BE Precursive)',
+      match: ({age, setting}) =>
+        ['nursery','reception'].includes(age),
+      why: 'Songs are one of the most powerful memory tools for young children — and children love them.',
+      priority: 2
+    },
+    {
+      id: 'magnetic_letters',
+      name: 'Jolly Phonics Magnetic Letters (NEW 2026)',
+      icon: '🔠',
+      tags: ['school', 'home', 'new'],
+      desc: '106 lower case magnetic letters and digraphs. Colour-coded: red consonants, blue vowels. Includes all 42 letter sounds (×2), extra vowels (×4), and common consonants (×6). Includes c/k, q/qu.',
+      isbn: 'JL3590',
+      match: ({setting, age}) =>
+        ['hands_on','both'].includes(setting) && ['nursery','reception','year1'].includes(age),
+      why: 'Hands-on word building on any magnetic surface — perfect for tactile learners.',
+      priority: 2
+    },
+    {
+      id: 'wall_frieze',
+      name: 'Jolly Phonics Wall Frieze & Posters',
+      icon: '🖼️',
+      tags: ['school'],
+      desc: '9.3m wall frieze with all 42 letter sounds in 7 sections. Also: Letter Sound Poster, Letter Sound Wall Charts, Alternative Spelling & Alphabet Posters, and Tricky Word Wall Flowers.',
+      isbn: 'JL6932 (Wall Frieze) · JL235 (Poster) · JL122 (Alt Spelling)',
+      match: ({who, setting}) =>
+        ['teacher','school'].includes(who) && ['hands_on','print','both'].includes(setting),
+      why: 'Creates an immersive phonics environment — children absorb sounds passively throughout the day.',
+      priority: 2
+    },
+    {
+      id: 'class_set',
+      name: 'Jolly Phonics Class Set',
+      icon: '📦',
+      tags: ['school'],
+      desc: '30 copies of Pupil Books 1, 2 & 3, plus a FREE Teacher\'s Book. Available in precursive or print letter editions.',
+      isbn: 'JL8653 (Precursive) · JL8660 (Print) — £450',
+      price: '£450 — 30 pupils',
+      match: ({who}) =>
+        ['school'].includes(who),
+      why: 'Best per-unit value for equipping a full class of 30 pupils.',
+      priority: 1
+    },
+    {
+      id: 'extra_support',
+      name: 'Jolly Phonics Extra / Pink Readers',
+      icon: '💛',
+      tags: ['school', 'home'],
+      desc: 'A gentler entry level before Red Readers — ideal for children who need extra time and confidence building. Now expanded with a new Pink level for 2026.',
+      isbn: 'Various — see jollylearning.com',
+      match: ({who, focus}) =>
+        who === 'senco' || focus === 'reading',
+      why: 'Specifically designed for children who need more support before progressing to Red level.',
+      priority: 1
+    },
+
+    // ── HIGH PRIORITY ADDITIONS ──────────────────────────────────────────────
+
+    {
+      id: 'purple_readers',
+      name: 'Jolly Phonics Purple Readers (Level 5)',
+      icon: '🟣',
+      tags: ['school', 'home', 'new'],
+      price: '£43.40 per set',
+      desc: 'New for 2026. For confident readers who know all 42 sounds, 72 tricky words, and all alternative spellings. Three series: Inky Mouse & Friends, General Fiction, and Nonfiction. 16 pages per book.',
+      isbn: 'JL2777 (Inky) · JL2784 (Fiction) · JL2791 (Nonfiction) · JL2807 (Complete set)',
+      match: ({age, focus}) =>
+        focus === 'reading' && age === 'year2plus',
+      why: 'The next step up from Blue Readers — ideal for Year 3–4 confident readers ready for a bigger challenge.',
+      priority: 1
+    },
+    {
+      id: 'folktales_readers',
+      name: 'Folktales Readers (Levels 1–5)',
+      icon: '🌍',
+      tags: ['school', 'home'],
+      desc: 'Beautifully illustrated retellings of traditional folktales from around the world, spanning Red through Purple levels. Carefully controlled vocabulary aligned to Jolly Phonics steps. 6 books per level set.',
+      isbn: 'JL1381 (Red) · JL1527 (Yellow) · JL1664 (Green) · JL1800 (Blue) · JL1244 (Purple)',
+      match: ({focus, age}) =>
+        focus === 'reading',
+      why: 'Diverse, culturally rich stories that keep children engaged while building decodable reading skills.',
+      priority: 2
+    },
+    {
+      id: 'our_world_readers',
+      name: 'Our World Nonfiction Readers (Levels 1–5)',
+      icon: '🌐',
+      tags: ['school', 'home'],
+      desc: 'High-impact nonfiction readers on real-world topics: music (Red), sport (Yellow), transport (Green), weather (Blue), animals (Purple). 6 books per level. 8–16 pages per book.',
+      isbn: 'JL8905 (Red) · JL9094 (Yellow) · JL9544 (Green) · JL9292 (Blue) · JL7113 (Purple)',
+      match: ({focus, who}) =>
+        focus === 'reading' && ['teacher','school','senco'].includes(who),
+      why: 'Nonfiction texts with fascinating real-world content — great for building knowledge alongside reading skills.',
+      priority: 2
+    },
+    {
+      id: 'jolly_english',
+      name: 'Jolly English (EAL/EFL Course)',
+      icon: '🌏',
+      tags: ['school', 'eal'],
+      price: 'Teacher Kit £199.95 · Pupil Sets £14.80 each',
+      desc: 'A complete English language course for pre-school children with little or no English. Two levels (44 lessons each), using songs, games, chants and stories. Introduces all 42 sounds in the Jolly Phonics sequence. Can be used before or alongside Jolly Phonics.',
+      isbn: 'JL030 (Teacher Kit with Puppets) · JL065 (Teacher Kit) · JL049 (Level 1 Pupil Set) · JL057 (Level 2 Pupil Set)',
+      match: ({who, age}) =>
+        ['senco','teacher','school'].includes(who) && ['nursery','reception'].includes(age),
+      why: 'The go-to programme for EAL/EFL learners — systematically builds English language before or alongside phonics.',
+      priority: 1
+    },
+    {
+      id: 'classroom_assessments',
+      name: 'Jolly Classroom Assessments (NEW 2026)',
+      icon: '📊',
+      tags: ['school', 'digital', 'new'],
+      price: '£120/year',
+      desc: 'New digital assessment tool for Jolly Phonics. Quickly assess class trends and gaps, identify pupils who need extra support, and tailor interventions. Integrates with Jolly Classroom. Also available as part of Jolly Classroom Complete Access (£450).',
+      isbn: 'JC004 (Assessments) · JC005 (Complete Access — £450)',
+      match: ({who, setting}) =>
+        ['senco','school','teacher'].includes(who) && ['digital','both'].includes(setting),
+      why: 'Saves hours of manual assessment — instantly shows where each pupil needs support so you can act fast.',
+      priority: 1
+    },
+    {
+      id: 'jolly_dictionary',
+      name: 'Jolly Dictionary',
+      icon: '📙',
+      tags: ['school', 'home'],
+      price: '£13.50 paperback · £15.70 hardback',
+      desc: '340-page dictionary with 6,000+ age-appropriate words, simple definitions and pronunciation guides. Colour-coded sections for easy navigation. Complements Spelling, Grammar & Punctuation Levels 1–3. Inner Winner of Edinburgh English Language Book Award.',
+      isbn: 'JL008 (Paperback) · JL713 (Hardback)',
+      match: ({age, focus}) =>
+        age === 'year2plus' || focus === 'literacy',
+      why: 'An essential desk reference to pair with Jolly Literacy — children learn to look up and understand new words independently.',
+      priority: 2
+    },
+
+    // ── MEDIUM PRIORITY ADDITIONS ────────────────────────────────────────────
+
+    {
+      id: 'workbooks',
+      name: 'Jolly Phonics Workbooks 1–7',
+      icon: '📝',
+      tags: ['school', 'home'],
+      price: '£24.15 for set of 7',
+      desc: '24-page write-in workbooks for extra phonics practice. Each sound has a story, action, letter formation guide and writing activities. Engaging exercises for reading and spelling regular and tricky words. Age 4+.',
+      isbn: 'JL6512–JL6574 (individual) · JL6581 (set of 7)',
+      match: ({setting, age, focus}) =>
+        ['print','both'].includes(setting) && ['reception','year1'].includes(age) && ['sounds','writing'].includes(focus),
+      why: 'More structured practice than the Pupil Books — ideal for reinforcement at home or in small group sessions.',
+      priority: 2
+    },
+    {
+      id: 'jolly_stories',
+      name: 'Jolly Stories',
+      icon: '📖',
+      tags: ['school', 'home'],
+      price: 'Single purchase',
+      desc: 'Seven enchanting stories covering all 42 letter sounds. Large embossed letters on each spread for tracing. Words for reading, segmenting, and practising the Jolly Phonics action. Tips and advice for parents. 80 pages.',
+      isbn: 'JL806',
+      match: ({who, age}) =>
+        ['parent','teacher'].includes(who) && ['nursery','reception','year1'].includes(age),
+      why: 'Stories make sounds memorable — this bridges home and school perfectly with parent guidance built in.',
+      priority: 2
+    },
+    {
+      id: 'my_first_letter_sounds',
+      name: 'My First Letter Sounds',
+      icon: '🐣',
+      tags: ['school', 'home'],
+      price: '£6.00',
+      desc: '22-page board book introducing all letter sounds — not just the alphabet. Letters include formation arrows so children practise correct direction from the start. Pictures help children identify sounds in words.',
+      isbn: 'JL747',
+      match: ({age}) =>
+        age === 'nursery',
+      why: 'The gentlest starting point in the range — perfect for very young children just beginning to notice sounds.',
+      priority: 1
+    },
+    {
+      id: 'grammar_glossary',
+      name: 'Grammar Glossary',
+      icon: '🔖',
+      tags: ['school'],
+      price: 'Single purchase',
+      desc: '48-page reference book defining all grammar terms used in Jolly Literacy, from "abstract noun" to "word family". Includes a guide to all grammar actions at the back. Ideal for every teacher\'s desk.',
+      isbn: 'JL8776',
+      match: ({who, age, focus}) =>
+        ['teacher','school','senco'].includes(who) && (age === 'year2plus' || focus === 'literacy'),
+      why: 'A quick-reference guide teachers reach for every day — removes uncertainty about grammar terminology.',
+      priority: 2
+    },
+    {
+      id: 'grammar_workbooks',
+      name: 'Grammar 1 Workbooks (Set 1–6)',
+      icon: '✏️',
+      tags: ['school', 'home'],
+      price: '£24.15 for set',
+      desc: 'Structured practice workbooks supporting Spelling, Grammar & Punctuation Level 1 (Year 1). Topics match the SGP 1 programme exactly. Can also be used at home for independent consolidation.',
+      isbn: 'JL631',
+      match: ({age, focus, setting}) =>
+        (age === 'year1' || focus === 'literacy') && ['print','both'].includes(setting),
+      why: 'Extra written practice that directly tracks the SGP 1 programme — great for home reinforcement of classroom learning.',
+      priority: 2
+    },
+
+    // ── LOWER PRIORITY ADDITIONS ─────────────────────────────────────────────
+
+    {
+      id: 'jolly_handbook',
+      name: 'Jolly Phonics Handbook',
+      icon: '📒',
+      tags: ['school', 'home'],
+      price: '£45.00',
+      desc: 'The original Jolly Phonics book — still a valuable teaching resource. Introduces letter sounds with actions and stories, covers alternative spellings and tricky words, and includes 100+ photocopiable sheets, reading/spelling activities and games.',
+      isbn: 'JL8424 (Precursive) · JL8431 (Print)',
+      match: ({who, setting}) =>
+        who === 'senco' && ['print','both'].includes(setting),
+      why: 'A comprehensive standalone reference with photocopiable resources — useful for supply teachers and home educators.',
+      priority: 2
+    },
+    {
+      id: 'word_book_bank',
+      name: 'Jolly Phonics Word Book & Word Bank',
+      icon: '📋',
+      tags: ['school', 'home'],
+      price: '£4.35 each',
+      desc: 'Two compact teacher reference books. The Word Book provides wordlists for dictation and blending practice. The Word Bank adds a comprehensive collection of words for blending, segmenting, and dictation, plus phrases and sentences with tricky words.',
+      isbn: 'JL790 (Word Book) · JL8752 (Word Bank)',
+      match: ({who, focus}) =>
+        ['teacher','senco','parent'].includes(who) && ['sounds','reading','writing'].includes(focus),
+      priority: 3
+    },
+    {
+      id: 'blends_wheels',
+      name: 'Jolly Phonics Blends Wheels (pack of 10)',
+      icon: '🔄',
+      tags: ['school'],
+      price: '£16.20',
+      desc: 'Pack of 10 double-sided wheels. Each side covers initial and final consonant blends (cl, dr, fl, fr, gr, sn, sp, sw and more). Helps children practise reading and writing words with consonant blends to build fluency.',
+      isbn: 'JL372',
+      match: ({who, focus}) =>
+        ['senco','teacher'].includes(who) && ['reading','writing','sounds'].includes(focus),
+      why: 'A hands-on tool for targeting consonant blends specifically — great for small group intervention work.',
+      priority: 2
+    },
+    {
+      id: 'jolly_plays',
+      name: 'Jolly Plays',
+      icon: '🎭',
+      tags: ['school'],
+      price: 'Single purchase',
+      desc: 'Six colour-coded plays to build fluent reading and speaking/listening skills. Each play includes teaching resources and cross-curricular activities. Colour-coded parts help teachers match roles to ability. Songs and non-speaking parts ensure full class inclusion.',
+      isbn: 'JL8936',
+      match: ({who, focus, age, setting}) =>
+        ['teacher','school'].includes(who) && ['reading','sounds'].includes(focus) && ['year1','year2plus'].includes(age) && ['hands_on'].includes(setting),
+      why: 'Brings reading to life through performance — particularly powerful for reluctant readers and EAL learners.',
+      priority: 1
+    },
+    {
+      id: 'online_training',
+      name: 'Online Training Courses',
+      icon: '🎓',
+      tags: ['school'],
+      price: 'From £30',
+      desc: '20-hour CPD courses for Jolly Phonics and Jolly Literacy, split across 5 modules. Delivered online, study at your own pace. Interactive, with guidance from course tutors. Shorter nursery and home educator courses also available. Earn certificates of completion.',
+      isbn: 'jollyphonics.cpdcollege.com · training.jollylearning.com',
+      match: ({who}) =>
+        ['teacher','school','senco'].includes(who),
+      why: 'Unlocks the full potential of the programme — teachers trained in Jolly Phonics consistently see better results.',
+      priority: 2
+    }
+  ];
+
+  return allProducts
+    .filter(p => p.match(answers))
+    .sort((a, b) => a.priority - b.priority)
+    .slice(0, 7);
+}
+
+function showResults() {
+  document.getElementById('quiz-section').style.display = 'none';
+  const resultsSection = document.getElementById('results-section');
+  resultsSection.style.display = 'block';
+
+  const recs = getRecommendations();
+
+  const summaryLabels = {
+    who: { parent: '👩‍👧 Parent', teacher: '👩‍🏫 Teacher', senco: '🧑‍🏫 SENCO', school: '🏫 School lead' },
+    age: { nursery: '🐣 Pre-school', reception: '🌱 Reception', year1: '📚 Year 1', year2plus: '✏️ Year 2–6' },
+    focus: { sounds: '🔤 Letter sounds', reading: '📖 Reading', writing: '✍️ Writing', literacy: '🧠 Literacy' },
+    setting: { digital: '📱 Digital', print: '📕 Print', hands_on: '🧸 Hands-on', both: '🏠 Home & school' }
+  };
+
+  const chips = Object.entries(summaryLabels).map(([key, vals]) =>
+    `<div class="summary-chip">${vals[answers[key]] || ''}</div>`
+  ).join('');
+
+  resultsSection.innerHTML = `
+    <div class="results-header">
+      <div class="trophy">🎉</div>
+      <h2>Your Recommendations</h2>
+      <p>Based on your answers, here are the Jolly Learning resources we think will work best for you.</p>
+    </div>
+    <div class="results-summary">${chips}</div>
+
+    <div class="products-section">
+      <h3><span class="section-icon">⭐</span> Top picks for you</h3>
+      ${recs.map((p, i) => `
+        <div class="product-card priority-${p.priority}" style="animation-delay: ${i * 0.08}s">
+          <div class="product-header">
+            <div class="product-icon">${p.icon}</div>
+            <div>
+              <div class="product-name">${p.name}</div>
+              <div class="product-tags">
+                ${p.tags.includes('school') ? '<span class="tag tag-school">School</span>' : ''}
+                ${p.tags.includes('home') ? '<span class="tag tag-home">Home</span>' : ''}
+                ${p.tags.includes('new') ? '<span class="tag tag-new">New 2026</span>' : ''}
+                ${p.tags.includes('digital') ? '<span class="tag tag-digital">Digital</span>' : ''}
+                ${p.tags.includes('eal') ? '<span class="tag tag-eal">EAL/EFL</span>' : ''}
+                ${p.price ? `<span class="tag tag-price">💰 ${p.price}</span>` : ''}
+              </div>
+            </div>
+          </div>
+          <div class="product-desc">${p.desc}</div>
+          ${p.isbn ? `<div class="product-isbn">ISBN / Ref: ${p.isbn}</div>` : ''}
+          <div class="product-why">${p.why}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="section-divider"></div>
+    <p style="text-align:center; color:#888; font-size:14px; margin-bottom: 8px;">
+      🛒 Order at <strong>jollylearning.com</strong> or email <strong>info@jollylearning.com</strong>
+    </p>
+    <button class="restart-btn" onclick="restart()">↩ Start again</button>
+  `;
+}
+
+function restart() {
+  answers = {}; currentQ = 0; selectedOption = null;
+  document.getElementById('results-section').style.display = 'none';
+  document.getElementById('quiz-section').style.display = 'block';
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
